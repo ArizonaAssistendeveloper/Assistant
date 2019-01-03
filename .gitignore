@@ -10,3 +10,4 @@ config/hungry - arizona rp.ini
 ArizonaAssistant/libs/auth.lua
 ArizonaAssistant/libs/auth.lua
 ArizonaAssistant/libs/auth.lua
+get.bat
