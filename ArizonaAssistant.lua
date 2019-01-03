@@ -55,7 +55,7 @@ end
 
 function load_startup_images()
   arizonaLogo =  imgui.CreateTextureFromFile(getWorkingDirectory() .. '\\ArizonaAssistant\\images\\arizona-logo.png')
-end
+end 
 
 function imgui.OnDrawFrame()
   if starup_window.v then
