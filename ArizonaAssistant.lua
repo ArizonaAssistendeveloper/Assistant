@@ -60,7 +60,7 @@ end
 function imgui.OnDrawFrame()
   if starup_window.v then
     sW, sH = getScreenResolution()
-    imgui.SetNextWindowSize(imgui.ImVec2(333, 333), imgui.Cond.FirstUseEver) -- меняем размер =============
+    imgui.SetNextWindowSize(imgui.ImVec2(333, 333), imgui.Cond.FirstUseEver)
     imgui.SetNextWindowPos(imgui.ImVec2(333, 333))
     imgui.Begin(u8'Главное меню', use_window_state, imgui.WindowFlags.NoResize + imgui.WindowFlags.NoMove + imgui.WindowFlags.NoCollapse)
     imgui.Image(arizonaLogo, imgui.ImVec2(160, 101))
