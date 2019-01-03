@@ -14,8 +14,12 @@ local sampev = require 'lib.samp.events'
 encoding.default = 'CP1251'
 u8 = encoding.UTF8
 
-local auth_status = false
 -- ===================== [ Vars ] ====================== 
+
+local auth_status = false
+
+sizeWindowAuthX = 720
+sizeWindowAuthY = 400
 
 local starup_window = imgui.ImBool(false)
 
@@ -54,20 +58,48 @@ function cmd_auth()
 end
 
 function load_startup_images()
-  arizonaLogo =  imgui.CreateTextureFromFile(getWorkingDirectory() .. '\\ArizonaAssistant\\images\\arizona-logo.jpg')
+  arizonaLogo =  imgui.CreateTextureFromFile(getWorkingDirectory() .. '\\ArizonaAssistant\\images\\arizona-logo.png')
 end 
 
 function imgui.OnDrawFrame()
   if starup_window.v then
-    sW, sH = getScreenResolution()
-    wW = imgui.GetWindowWidth()
-    wH = imgui.GetWindowHeight()
-    imgui.SetNextWindowSize(imgui.ImVec2(333, 333), imgui.Cond.FirstUseEver)
-    imgui.SetNextWindowPos(imgui.ImVec2(333, 333))
+    sizeScreenX, sizeScreenY = getScreenResolution()
+    sizeWindowX = GetNormalRation(1, sizeWindowAuthX)+30
+    sizeWindowY = GetNormalRation(2, sizeWindowAuthY)+30
+    tmpPosX = (sizeScreenX/2)-(sizeWindowX/2)
+    tmpPosY = (sizeScreenY/2)-(sizeWindowY/2)
+
+    imgui.SetNextWindowPos(imgui.ImVec2(tmpPosX, tmpPosY))
+    imgui.SetNextWindowSize(imgui.ImVec2(sizeWindowX, sizeWindowY), imgui.Cond.FirstUseEver)
     imgui.Begin(u8'Главное меню', use_window_state, imgui.WindowFlags.NoResize + imgui.WindowFlags.NoMove + imgui.WindowFlags.NoCollapse)
-    imgui.Image(arizonaLogo, imgui.ImVec2(800, 312))
+    imgui.Image(arizonaLogo, imgui.ImVec2(GetNormalRation(1, 720), GetNormalRation(2, 312)))
     imgui.End()
   end
+end
+
+
+function imgui.CentrText(text)
+    local width = imgui.GetWindowWidth()
+    local text_width = imgui.CalcTextSize(text)
+    imgui.SetCursorPosX( width / 2 - text_width .x / 2 )
+    imgui.Text(text)
+end
+
+function GetNormalRation(cordType, sizeElement) -- 1 = X; 2 = Y
+  local currentRatio = screenRatio
+  local sizeM = 0
+  local normalSizeScreenX = 1920
+  local normalSizeScreenY = 1080
+
+  if cordType == 1 then
+    currentRatio = sizeScreenX / normalSizeScreenX
+    sizeM = sizeElement*currentRatio
+  end
+  if cordType == 2 then
+    currentRatio = sizeScreenY / normalSizeScreenY
+    sizeM = sizeElement*currentRatio
+  end
+  return sizeM
 end
 
 -- ===================== [ Custom style ] ======================
