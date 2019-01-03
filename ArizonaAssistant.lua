@@ -22,7 +22,7 @@ local starup_window = imgui.ImBool(false)
 
 function sampev.onSendSpawn()
 	if auth_status == false then
-		sampAddChatMessage('[Информация] {7B68EE}Для авторизации используйте {FF0000}/auth', 0xDAA520)
+		sampAddChatMessage('[Г€Г­ГґГ®Г°Г¬Г Г¶ГЁГї] {7B68EE}Г„Г«Гї Г ГўГІГ®Г°ГЁГ§Г Г¶ГЁГЁ ГЁГ±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ {FF0000}/auth', 0xDAA520)
 	end
 end
 
@@ -30,11 +30,11 @@ function main()
   if not isSampLoaded() or not isSampfuncsLoaded() then return end
   while not isSampAvailable() do wait (100) end
   sampRegisterChatCommand('auth', cmd_auth)
-  -- Загрузка сампа
+  -- Г‡Г ГЈГ°ГіГ§ГЄГ  Г±Г Г¬ГЇГ 
   while true do
   	wait(10)
   	if auth_status then
-    	if isKeyJustPressed(VK_F2) then -- Главное меню
+    	if isKeyJustPressed(VK_F2) then -- ГѓГ«Г ГўГ­Г®ГҐ Г¬ГҐГ­Гѕ
         imgui.Process = true
         starup_window.v = not starup_window.v
       end
@@ -44,11 +44,11 @@ end
 
 function cmd_auth()
 	if auth_status then
-		sampAddChatMessage('[Информация] {7B68EE}Вы уже авторизованы!', 0xDAA520)
+		sampAddChatMessage('[Г€Г­ГґГ®Г°Г¬Г Г¶ГЁГї] {7B68EE}Г‚Г» ГіГ¦ГҐ Г ГўГІГ®Г°ГЁГ§Г®ГўГ Г­Г»!', 0xDAA520)
 	else
     print('Starting load...')
     load_startup_images()
-    sampAddChatMessage('[Информация] {7B68EE}Скрипт успешно загружен!', 0xDAA520)
+    sampAddChatMessage('[Г€Г­ГґГ®Г°Г¬Г Г¶ГЁГї] {7B68EE}Г‘ГЄГ°ГЁГЇГІ ГіГ±ГЇГҐГёГ­Г® Г§Г ГЈГ°ГіГ¦ГҐГ­!', 0xDAA520)
 		auth_status = true
 	end
 end
@@ -60,9 +60,9 @@ end
 function imgui.OnDrawFrame()
   if starup_window.v then
     sW, sH = getScreenResolution()
-    imgui.SetNextWindowSize(imgui.ImVec2(333, 333), imgui.Cond.FirstUseEver) -- меняем размер =============
+    imgui.SetNextWindowSize(imgui.ImVec2(333, 333), imgui.Cond.FirstUseEver) -- Г¬ГҐГ­ГїГҐГ¬ Г°Г Г§Г¬ГҐГ° =============
     imgui.SetNextWindowPos(imgui.ImVec2(333, 333))
-    imgui.Begin(u8'Главное меню', use_window_state, imgui.WindowFlags.NoResize + imgui.WindowFlags.NoMove + imgui.WindowFlags.NoCollapse)
+    imgui.Begin(u8'ГѓГ«Г ГўГ­Г®ГҐ Г¬ГҐГ­Гѕ', use_window_state, imgui.WindowFlags.NoResize + imgui.WindowFlags.NoMove + imgui.WindowFlags.NoCollapse)
     imgui.Image(arizonaLogo, imgui.ImVec2(160, 101))
     imgui.End()
   end
