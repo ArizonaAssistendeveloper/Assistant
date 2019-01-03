@@ -54,16 +54,18 @@ function cmd_auth()
 end
 
 function load_startup_images()
-  arizonaLogo =  imgui.CreateTextureFromFile(getWorkingDirectory() .. '\\ArizonaAssistant\\images\\arizona-logo.png')
+  arizonaLogo =  imgui.CreateTextureFromFile(getWorkingDirectory() .. '\\ArizonaAssistant\\images\\arizona-logo.jpg')
 end 
 
 function imgui.OnDrawFrame()
   if starup_window.v then
     sW, sH = getScreenResolution()
+    wW = imgui.GetWindowWidth()
+    wH = imgui.GetWindowHeight()
     imgui.SetNextWindowSize(imgui.ImVec2(333, 333), imgui.Cond.FirstUseEver)
     imgui.SetNextWindowPos(imgui.ImVec2(333, 333))
     imgui.Begin(u8'Главное меню', use_window_state, imgui.WindowFlags.NoResize + imgui.WindowFlags.NoMove + imgui.WindowFlags.NoCollapse)
-    imgui.Image(arizonaLogo, imgui.ImVec2(160, 101))
+    imgui.Image(arizonaLogo, imgui.ImVec2(800, 312))
     imgui.End()
   end
 end
