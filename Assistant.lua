@@ -19,21 +19,50 @@ u8 = encoding.UTF8
 -- ===================== [ Bool's ] ====================== 
 
 local auth_status = false
+local startup_check_stats = false
+
+-- ===================== [ String's ] ====================== 
+
+local playerName = ''
 
 -- ===================== [ Integer ] ====================== 
 
-local sizeWindowAuthX = 570
-local sizeWindowAuthY = 230
+local playerOrg = 0
+local playerRang = 0
+
+local sizeWindowAuthX = 610
+local sizeWindowAuthY = 235
 
 -- ===================== [ Imgui bool's ] ====================== 
 
 local starup_window = imgui.ImBool(false)
+
+-- ===================== [ Constant's ] ====================== 
+
+
 
 -- ===================== [ CallBack's ] ====================== 
 
 function sampev.onSendSpawn()
   if auth_status == false then
     sampAddChatMessage('[Информация] {7B68EE}Для авторизации используйте {FF0000}/auth', 0xDAA520)
+  end
+end
+
+function onScriptTerminate(scr)
+  imgui.Process = false
+end
+-- При выходе из игры
+function onQuitGame()
+  imgui.Process = false
+end
+
+function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
+  if title:find("Основная статистика") then
+    playerName = text:match("Имя: {B83434}(%S+)")
+    local organization = text:match("Организация: {B83434}(%S+ %S+)")
+    local rang = text:match("Должность: {B83434}(%S+)")
+    
   end
 end
 
@@ -50,7 +79,6 @@ function main()
       if isKeyJustPressed(VK_F2) then -- Главное меню
         starup_window.v = not starup_window.v
       end
-
       if starup_window.v == true then
         imgui.Process = true
       end
@@ -75,7 +103,10 @@ function cmd_auth()
     imgui.GetIO().Fonts:AddFontFromFileTTF(getFolderPath(0x14) .. '\\arial.ttf', (15*GetNormalTextSize()), nil, glyph_ranges_cyrillic) -- huui
     imgui.RebuildFonts()
     load_startup_images()
+    startup_check_stats = true
+    sampSendChat('/stats')
     sampAddChatMessage('[Информация] {7B68EE}Скрипт успешно загружен!', 0xDAA520)
+    starup_window.v = true
     auth_status = true
   end
 end
@@ -105,19 +136,19 @@ function imgui.OnDrawFrame()
     imgui.Image(arizonaLogo, imgui.ImVec2(GetNormalRation(1, 470-15), GetNormalRation(2, 230-15)))
     imgui.NextColumn()
     imgui.SetColumnWidth(-1, GetNormalRation(1, sizeWindowX-465))
-    if imgui.Button(u8'Интсрукиця', imgui.ImVec2((sizeWindowX-465)-15, 30)) then
+    if imgui.Button(u8'Инструкция', imgui.ImVec2((sizeWindowX-465)-15, 30)) then
       
     end
-    if imgui.Button(u8'Главные настройки', imgui.ImVec2((sizeWindowX-465)-15, 30)) then
-      
-    end
-    if imgui.Button(u8'Настройки орг.', imgui.ImVec2((sizeWindowX-465)-15, 30)) then
+    if imgui.Button(u8'Настройки', imgui.ImVec2((sizeWindowX-465)-15, 30)) then
       
     end
     if imgui.Button(u8'Биндер', imgui.ImVec2((sizeWindowX-465)-15, 30)) then
       
     end
-    if imgui.Button(u8'Информация', imgui.ImVec2((sizeWindowX-465)-15, 30)) then
+    if imgui.Button(u8'MP3 плеер', imgui.ImVec2((sizeWindowX-465)-15, 30)) then
+      
+    end
+    if imgui.Button(u8'Обновления', imgui.ImVec2((sizeWindowX-465)-15, 30)) then
       
     end
     imgui.End()
