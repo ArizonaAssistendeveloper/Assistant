@@ -18,8 +18,8 @@ u8 = encoding.UTF8
 
 local auth_status = false
 
-sizeWindowAuthX = 720
-sizeWindowAuthY = 400
+sizeWindowAuthX = 570
+sizeWindowAuthY = 230
 
 local starup_window = imgui.ImBool(false)
 
@@ -47,10 +47,16 @@ function main()
 end
 
 function cmd_auth()
+  imgui.Process = false
   if auth_status then
     sampAddChatMessage('[Информация] {7B68EE}Вы уже авторизованы!', 0xDAA520)
   else
     print('Starting load...')
+    imgui.SwitchContext()
+    imgui.GetIO().Fonts:Clear()
+    glyph_ranges_cyrillic = imgui.GetIO().Fonts:GetGlyphRangesCyrillic()
+    imgui.GetIO().Fonts:AddFontFromFileTTF(getFolderPath(0x14) .. '\\arial.ttf', (15*GetNormalTextSize()), nil, glyph_ranges_cyrillic) -- huui
+    imgui.RebuildFonts()
     load_startup_images()
     sampAddChatMessage('[Информация] {7B68EE}Скрипт успешно загружен!', 0xDAA520)
     auth_status = true
@@ -68,11 +74,17 @@ function imgui.OnDrawFrame()
     sizeWindowY = GetNormalRation(2, sizeWindowAuthY)+30
     tmpPosX = (sizeScreenX/2)-(sizeWindowX/2)
     tmpPosY = (sizeScreenY/2)-(sizeWindowY/2)
-
     imgui.SetNextWindowPos(imgui.ImVec2(tmpPosX, tmpPosY))
     imgui.SetNextWindowSize(imgui.ImVec2(sizeWindowX, sizeWindowY), imgui.Cond.FirstUseEver)
     imgui.Begin(u8'Главное меню', use_window_state, imgui.WindowFlags.NoResize + imgui.WindowFlags.NoMove + imgui.WindowFlags.NoCollapse)
-    imgui.Image(arizonaLogo, imgui.ImVec2(GetNormalRation(1, 720), GetNormalRation(2, 312)))
+    imgui.Columns(2, _, false)
+    imgui.SetColumnWidth(-1, GetNormalRation(1, 470-15))
+    imgui.Image(arizonaLogo, imgui.ImVec2(GetNormalRation(1, 470-15), GetNormalRation(2, 230-15)))
+    imgui.NextColumn()
+    imgui.SetColumnWidth(-1, GetNormalRation(1, sizeWindowX-465))
+    if imgui.Button(u8'Интсрукиця', imgui.ImVec2((sizeWindowX-465)-15, 30)) then
+      lua_thread.create(func_winthdraw_from_deposit)
+    end
     imgui.End()
   end
 end
@@ -99,6 +111,17 @@ function GetNormalRation(cordType, sizeElement) -- 1 = X; 2 = Y
     currentRatio = sizeScreenY / normalSizeScreenY
     sizeM = sizeElement*currentRatio
   end
+  return sizeM
+end
+
+function GetNormalTextSize()
+  sizeScreenX, sizeScreenY = getScreenResolution()
+  local currentRatio = screenRatio
+  local sizeM = 0
+  local normalSizeScreenX = 1920
+  local normalSizeScreenY = 1080
+    currentRatio = sizeScreenX / normalSizeScreenX
+    sizeM = currentRatio
   return sizeM
 end
 
