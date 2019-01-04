@@ -39,15 +39,21 @@ function main()
     wait(10)
     if auth_status then
       if isKeyJustPressed(VK_F2) then -- Главное меню
-        imgui.Process = true
         starup_window.v = not starup_window.v
+      end
+
+      if starup_window.v == true then
+        imgui.Process = true
+      end
+
+      if starup_window == false then
+        imgui.Process = false
       end
     end
   end
 end
 
 function cmd_auth()
-  imgui.Process = false
   if auth_status then
     sampAddChatMessage('[Информация] {7B68EE}Вы уже авторизованы!', 0xDAA520)
   else
