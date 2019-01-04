@@ -91,6 +91,18 @@ function imgui.OnDrawFrame()
     if imgui.Button(u8'Интсрукиця', imgui.ImVec2((sizeWindowX-465)-15, 30)) then
       lua_thread.create(func_winthdraw_from_deposit)
     end
+    if imgui.Button(u8'Главные настройки', imgui.ImVec2((sizeWindowX-465)-15, 30)) then
+      lua_thread.create(func_winthdraw_from_deposit)
+    end
+    if imgui.Button(u8'Настройки орг.', imgui.ImVec2((sizeWindowX-465)-15, 30)) then
+      lua_thread.create(func_winthdraw_from_deposit)
+    end
+    if imgui.Button(u8'Биндер', imgui.ImVec2((sizeWindowX-465)-15, 30)) then
+      lua_thread.create(func_winthdraw_from_deposit)
+    end
+    if imgui.Button(u8'Информация', imgui.ImVec2((sizeWindowX-465)-15, 30)) then
+      lua_thread.create(func_winthdraw_from_deposit)
+    end
     imgui.End()
   end
 end
