@@ -14,21 +14,30 @@ local sampev = require 'lib.samp.events'
 encoding.default = 'CP1251'
 u8 = encoding.UTF8
 
--- ===================== [ Vars ] ====================== 
+-- ===================== { Vars } ====================== 
+
+-- ===================== [ Bool's ] ====================== 
 
 local auth_status = false
 
-sizeWindowAuthX = 570
-sizeWindowAuthY = 230
+-- ===================== [ Integer ] ====================== 
+
+local sizeWindowAuthX = 570
+local sizeWindowAuthY = 230
+
+-- ===================== [ Imgui bool's ] ====================== 
 
 local starup_window = imgui.ImBool(false)
 
+-- ===================== [ CallBack's ] ====================== 
 
 function sampev.onSendSpawn()
   if auth_status == false then
     sampAddChatMessage('[Информация] {7B68EE}Для авторизации используйте {FF0000}/auth', 0xDAA520)
   end
 end
+
+-- ===================== [ Main ] ====================== 
 
 function main()
   if not isSampLoaded() or not isSampfuncsLoaded() then return end
@@ -53,6 +62,8 @@ function main()
   end
 end
 
+-- ===================== [ Commands ] ====================== 
+
 function cmd_auth()
   if auth_status then
     sampAddChatMessage('[Информация] {7B68EE}Вы уже авторизованы!', 0xDAA520)
@@ -69,9 +80,15 @@ function cmd_auth()
   end
 end
 
+-- ===================== [ Load functions] ====================== 
+
 function load_startup_images()
   arizonaLogo =  imgui.CreateTextureFromFile(getWorkingDirectory() .. '\\ArizonaAssistant\\images\\arizona-logo.png')
 end 
+
+-- ===================== [ Other functions ] ====================== 
+
+-- ===================== [ Reder window's ] ====================== 
 
 function imgui.OnDrawFrame()
   if starup_window.v then
