@@ -99,26 +99,26 @@ function imgui.OnDrawFrame()
     tmpPosY = (sizeScreenY/2)-(sizeWindowY/2)
     imgui.SetNextWindowPos(imgui.ImVec2(tmpPosX, tmpPosY))
     imgui.SetNextWindowSize(imgui.ImVec2(sizeWindowX, sizeWindowY), imgui.Cond.FirstUseEver)
-    imgui.Begin(u8'Главное меню', use_window_state, imgui.WindowFlags.NoResize + imgui.WindowFlags.NoMove + imgui.WindowFlags.NoCollapse)
+    imgui.Begin(u8'Главное меню', starup_window, imgui.WindowFlags.NoResize + imgui.WindowFlags.NoMove + imgui.WindowFlags.NoCollapse)
     imgui.Columns(2, _, false)
     imgui.SetColumnWidth(-1, GetNormalRation(1, 470-15))
     imgui.Image(arizonaLogo, imgui.ImVec2(GetNormalRation(1, 470-15), GetNormalRation(2, 230-15)))
     imgui.NextColumn()
     imgui.SetColumnWidth(-1, GetNormalRation(1, sizeWindowX-465))
     if imgui.Button(u8'Интсрукиця', imgui.ImVec2((sizeWindowX-465)-15, 30)) then
-      lua_thread.create(func_winthdraw_from_deposit)
+      
     end
     if imgui.Button(u8'Главные настройки', imgui.ImVec2((sizeWindowX-465)-15, 30)) then
-      lua_thread.create(func_winthdraw_from_deposit)
+      
     end
     if imgui.Button(u8'Настройки орг.', imgui.ImVec2((sizeWindowX-465)-15, 30)) then
-      lua_thread.create(func_winthdraw_from_deposit)
+      
     end
     if imgui.Button(u8'Биндер', imgui.ImVec2((sizeWindowX-465)-15, 30)) then
-      lua_thread.create(func_winthdraw_from_deposit)
+      
     end
     if imgui.Button(u8'Информация', imgui.ImVec2((sizeWindowX-465)-15, 30)) then
-      lua_thread.create(func_winthdraw_from_deposit)
+      
     end
     imgui.End()
   end
